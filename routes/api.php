@@ -19,8 +19,5 @@ use App\Http\Controllers\API\V1\APITransactionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::get('/wallets/{user_id}', APIWalletController::class);
-
-//Route::post('/transactions', APIWalletController::class);
-Route::get('/transactions/{user_id}', APITransactionController::class);
+Route::resource('transactions', APITransactionController::class);

@@ -18,4 +18,14 @@ class WalletRepository extends BaseRepository implements WalletRepositoryInterfa
     {
         return $this->model->where('user_id', $id);
     }
+
+    public function create($request)
+    {
+        return $this->model->create($request);
+    }
+
+    public function update($request, $id)
+    {
+        return $this->model->where('user_id', $id)->update($request);
+    }
 }

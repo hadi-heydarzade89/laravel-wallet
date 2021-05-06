@@ -19,4 +19,9 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
     {
         return $this->model->where('user_id', $id);
     }
+
+    public function store($attributes)
+    {
+        $delivery = $this->model->create($attributes);
+    }
 }

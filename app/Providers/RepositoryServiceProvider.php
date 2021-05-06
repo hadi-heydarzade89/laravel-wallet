@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\API\V1\CurrencyRepository;
+use App\Repositories\API\V1\CurrencyRepositoryInterface;
 use App\Repositories\API\V1\TransactionRepository;
 use App\Repositories\API\V1\TransactionRepositoryInterface;
 use App\Repositories\API\V1\WalletRepository;
@@ -19,8 +21,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BaseRepositoryInterface::class,BaseRepository::class);
-        $this->app->bind(WalletRepositoryInterface::class,WalletRepository::class);
-        $this->app->bind(TransactionRepositoryInterface::class,TransactionRepository::class);
+        $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
+        $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
+        $this->app->bind(TransactionRepositoryInterface::class, TransactionRepository::class);
+        $this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
     }
 }
