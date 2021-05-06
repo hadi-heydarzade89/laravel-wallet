@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['withdrawal', 'deposit']);
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->unsignedBigInteger('currency_id');
             $table->double('amount');
             $table->enum('status', ['confirm', 'reject'])->default('confirm');

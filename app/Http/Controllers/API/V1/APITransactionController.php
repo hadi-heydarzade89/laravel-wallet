@@ -8,10 +8,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\TransactionRequest;
 use App\Repositories\API\V1\CurrencyRepository;
 use App\Repositories\API\V1\TransactionRepositoryInterface;
-use App\Repositories\API\V1\WalletRepositoryInterface;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\DB;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class APITransactionController extends BaseController
 {
@@ -30,14 +27,16 @@ class APITransactionController extends BaseController
 
     public function show($id)
     {
-        return $this->response($this->transactionRepository->find($id)->get());
+        return $this->response($this->transactionRepository->find($id)->get(),Response::HTTP_OK,'');
     }
 
     public function store(TransactionRequest $request)
     {
         $attributes = $request->all();
         $attributes['currency_id'] = $this->currencyRepository->findByName($attributes['currency_id'])->id;
-        $this->transactionRepository->storeTransactionAndUpdateWalletAmount($attributes);
-
+        return $this->response(
+            $this->transactionRepository->storeTransactionAndUpdateWalletAmount($attributes),
+            Response::HTTP_OK, 'Transaction created successfully and wallet updated'
+        );
     }
 }
