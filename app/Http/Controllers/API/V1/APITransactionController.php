@@ -10,24 +10,21 @@ use App\Repositories\API\V1\CurrencyRepository;
 use App\Repositories\API\V1\TransactionRepositoryInterface;
 use App\Repositories\API\V1\WalletRepositoryInterface;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class APITransactionController extends BaseController
 {
     private $transactionRepository;
 
-    private $walletRepository;
-
     private $currencyRepository;
 
     public function __construct(
         TransactionRepositoryInterface $transactionRepository,
-        WalletRepositoryInterface $walletRepository,
         CurrencyRepository $currencyRepository
     )
     {
         $this->transactionRepository = $transactionRepository;
-        $this->walletRepository = $walletRepository;
         $this->currencyRepository = $currencyRepository;
     }
 
@@ -39,18 +36,8 @@ class APITransactionController extends BaseController
     public function store(TransactionRequest $request)
     {
         $attributes = $request->all();
-        $attributes['status'] = 'confirm';
-        $attributes['currency_id'] = $this->currencyRepository->find($attributes['currency_id'])->get()[0]->id;
-        $this->transactionRepository->store($attributes);
+        $attributes['currency_id'] = $this->currencyRepository->findByName($attributes['currency_id'])->id;
+        $this->transactionRepository->storeTransactionAndUpdateWalletAmount($attributes);
 
-        $amount = $this->walletRepository->find((int)$attributes['user_id'])->get()[0]->amount;
-        if ($attributes['type'] !== 'deposit') {
-            $attributes['amount'] = (-1 * $attributes['amount']);
-        }
-
-        $attributes['amount'] = $attributes['amount'] + $amount;
-        unset($attributes['type']);
-        unset($attributes['status']);
-        $this->walletRepository->update($attributes, $attributes['user_id']);
     }
 }

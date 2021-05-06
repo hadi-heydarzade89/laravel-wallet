@@ -16,16 +16,19 @@ class BaseController extends Controller
     private function success($data)
     {
         return [
+
+            'data' => $data,
+            'message' => '',
             'status' => true,
-            'message' => $data,
         ];
     }
 
     private function failed($data)
     {
         return [
+            'data' => '',
+            'message' => 'empty result',
             'status' => false,
-            'message' => "empty result",
         ];
     }
 }

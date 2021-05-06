@@ -15,8 +15,8 @@ class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInt
         parent::__construct($model);
     }
 
-    public function find($name)
+    public function findByName($name)
     {
-        return $this->model->where('name', $name);
+        return $this->model->where('name', $name)->first();
     }
 }

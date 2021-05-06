@@ -16,7 +16,7 @@ class WalletRepository extends BaseRepository implements WalletRepositoryInterfa
 
     public function find($id)
     {
-        return $this->model->where('user_id', $id);
+        return $this->model->where('user_id', $id)->first();
     }
 
     public function create($request)

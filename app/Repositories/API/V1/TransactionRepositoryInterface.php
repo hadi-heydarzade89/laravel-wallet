@@ -9,4 +9,6 @@ interface TransactionRepositoryInterface
     public function find($id);
 
     public function store($attributes);
+
+    public function storeTransactionAndUpdateWalletAmount($attributes);
 }

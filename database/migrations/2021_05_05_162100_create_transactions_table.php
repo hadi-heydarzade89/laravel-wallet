@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('currency_id');
             $table->double('amount');
-            $table->enum('status', ['confirm', 'reject']);
+            $table->enum('status', ['confirm', 'reject'])->default('confirm');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('currency_id')->references('id')->on('currencies');
             $table->timestamps();

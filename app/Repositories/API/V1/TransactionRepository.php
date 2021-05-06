@@ -10,8 +10,14 @@ use App\Repositories\BaseRepository;
 
 class TransactionRepository extends BaseRepository implements TransactionRepositoryInterface
 {
-    public function __construct(Transaction $model)
+    private $walletRepository;
+
+    public function __construct(
+        Transaction $model,
+        WalletRepositoryInterface $walletRepository
+    )
     {
+        $this->walletRepository = $walletRepository;
         parent::__construct($model);
     }
 
@@ -22,6 +28,20 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
 
     public function store($attributes)
     {
-        $delivery = $this->model->create($attributes);
+        $this->model->create($attributes);
+    }
+
+    public function storeTransactionAndUpdateWalletAmount($attributes)
+    {
+        $this->store($attributes);
+        $amount = $this->walletRepository->find((int)$attributes['user_id'])->amount;
+
+        if ($attributes['type'] !== 'deposit') {
+            $attributes['amount'] = (-1 * $attributes['amount']);
+        }
+        $attributes['amount'] = $attributes['amount'] + $amount;
+        unset($attributes['type']);
+        unset($attributes['status']);
+        $this->walletRepository->update($attributes, $attributes['user_id']);
     }
 }
