@@ -6,6 +6,8 @@ use App\Repositories\API\V1\CurrencyRepository;
 use App\Repositories\API\V1\CurrencyRepositoryInterface;
 use App\Repositories\API\V1\TransactionRepository;
 use App\Repositories\API\V1\TransactionRepositoryInterface;
+use App\Repositories\API\V1\UserRepository;
+use App\Repositories\API\V1\UserRepositoryInterface;
 use App\Repositories\API\V1\WalletRepository;
 use App\Repositories\API\V1\WalletRepositoryInterface;
 use App\Repositories\BaseRepository;
@@ -25,5 +27,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
         $this->app->bind(TransactionRepositoryInterface::class, TransactionRepository::class);
         $this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }
