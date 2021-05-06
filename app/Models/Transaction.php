@@ -10,7 +10,11 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type','user_id','currency_id','amount','status',
+        'type', 'user_id', 'currency_id', 'amount', 'status',
+    ];
+
+    protected $hidden = [
+        'id', 'created_at', 'updated_at'
     ];
 
     public function user()
