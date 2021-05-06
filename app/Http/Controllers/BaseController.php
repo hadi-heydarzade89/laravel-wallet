@@ -2,15 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Services\ResponseServiceInterface;
-use function PHPUnit\Framework\isEmpty;
-
-
 class BaseController extends Controller
 {
-    protected $responseService;
-
 
     protected function response($data)
     {

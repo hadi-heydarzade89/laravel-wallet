@@ -23,4 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/wallets/{user_id}', APIWalletController::class);
 
 //Route::post('/transactions', APIWalletController::class);
-//Route::get('/transactions/{user_id}', APITransactionController::class);
+Route::get('/transactions/{user_id}', APITransactionController::class);
