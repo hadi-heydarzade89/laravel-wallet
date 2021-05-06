@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->enum('type', ['withdrawal', 'deposit']);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('currency_id');
-            $table->decimal('amount');
+            $table->double('amount');
             $table->enum('status', ['confirm', 'reject']);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('currency_id')->references('id')->on('currencies');

@@ -17,7 +17,7 @@ class CreateWaletsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('currency_id');
-            $table->decimal('amount');
+            $table->double('amount');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('currency_id')->references('id')->on('currencies');
             $table->timestamps();

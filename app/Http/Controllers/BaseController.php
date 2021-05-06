@@ -9,12 +9,8 @@ use function PHPUnit\Framework\isEmpty;
 
 class BaseController extends Controller
 {
-    private $responseService;
+    protected $responseService;
 
-    public function __construct(ResponseServiceInterface $responseService)
-    {
-        $this->responseService = $responseService;
-    }
 
     protected function response($data)
     {
@@ -35,7 +31,7 @@ class BaseController extends Controller
     private function failed($data)
     {
         return [
-            'status' => true,
+            'status' => false,
             'message' => "empty result",
         ];
     }
