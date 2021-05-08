@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/wallets/{user_id}', APIWalletController::class);
-Route::resource('transactions', APITransactionController::class);
+Route::resource('transactions', APITransactionController::class)->only(['show','store']);
